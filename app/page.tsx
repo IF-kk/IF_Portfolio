@@ -244,21 +244,6 @@ function Hero() {
             />
             <div className="absolute inset-0 bg-gradient-to-br from-glow-cyan/5 via-transparent to-glow-indigo/5 pointer-events-none" />
 
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div
-                className="flex h-16 w-16 items-center justify-center rounded-full border border-foreground/20 bg-foreground/10 backdrop-blur-sm md:h-20 md:w-20 transition-all duration-400"
-                style={{
-                  transform: isHovering ? "scale(1.1)" : "scale(1)",
-                  opacity: isHovering ? 1 : 0.7,
-                }}
-              >
-                <Play
-                  size={24}
-                  className="ml-1 text-foreground"
-                  fill="currentColor"
-                />
-              </div>
-            </div>
 
             <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6">
               <span className="text-xs tracking-[0.2em] uppercase text-text-secondary">
