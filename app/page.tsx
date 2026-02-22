@@ -234,15 +234,15 @@ function Hero() {
                 "linear-gradient(135deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%)",
             }}
           >
-            <video
-              src="/assets/portfolio.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 h-full w-full object-cover opacity-60 transition-opacity duration-700 group-hover:opacity-100"
+            <iframe
+              src="https://www.youtube.com/embed/PBCakwNhR3A?autoplay=1&mute=1&loop=1&playlist=PBCakwNhR3A&controls=0&modestbranding=1&rel=0"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 h-[150%] w-[150%] -top-[25%] -left-[25%] object-cover opacity-60 transition-opacity duration-700 group-hover:opacity-100 pointer-events-none"
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-glow-cyan/5 via-transparent to-glow-indigo/5" />
+            <div className="absolute inset-0 bg-gradient-to-br from-glow-cyan/5 via-transparent to-glow-indigo/5 pointer-events-none" />
 
             <div className="absolute inset-0 flex items-center justify-center">
               <div
@@ -299,21 +299,21 @@ const services = [
     description:
       "ブランドの象徴に、命を吹き込む。\n\n精緻なキーフレーム制御により、静止した図形を魅惑的なモーションへと昇華させます。流体的な動きから複雑な幾何学アニメーションまで、ブランドのアイデンティティを視覚的に拡張します。",
     number: "01",
-    video: "/assets/logo.mp4",
+    videoId: "Ovn9YIFT8bs",
   },
   {
     title: "Showreel",
     description:
       "あらゆる世界観を、自在に操る。\n\n重厚なコーポレートデザインから、ポップなSNS向けプロモーションまで。目的に合わせた最適なトーン＆マナーを構築し、多様な視覚表現を提供します。\n※本セクションの映像は、技術デモを目的としたコンセプトワーク（架空案件）です。",
     number: "02",
-    video: "/assets/portfolio.mp4",
+    videoId: "PBCakwNhR3A",
   },
   {
     title: "Short Motion Graphics",
     description:
       "次元を超え、音と同期する視覚体験。\n\n2Dの枠を超えた3DCGの空間設計と、ビートに完璧にシンクロする心地よいモーション。ライブ演出やイベントVTRなど、没入感のある映像体験を創出します。\nMusic by Bemaybe",
     number: "03",
-    video: "/assets/motion.mp4",
+    videoId: "CAtGhFXoekk",
   },
 ];
 
@@ -339,14 +339,14 @@ function ServiceCard({
         }}
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl md:rounded-3xl">
-          {service.video && (
-            <video
-              src={service.video}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 -z-10 h-full w-full object-cover transition-all duration-700"
+          {service.videoId && (
+            <iframe
+              src={`https://www.youtube.com/embed/${service.videoId}?autoplay=1&mute=1&loop=1&playlist=${service.videoId}&controls=0&modestbranding=1&rel=0`}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 -z-10 h-[150%] w-[150%] -top-[25%] -left-[25%] object-cover transition-all duration-700 pointer-events-none"
               style={{
                 opacity: isHovered ? 0.5 : 0,
                 transform: isHovered ? "scale(1.05)" : "scale(1)",
@@ -412,15 +412,15 @@ function Works() {
       >
         <div className="relative w-[90vw] max-w-[1920px] aspect-video rounded-xl overflow-hidden shadow-[0_0_100px_rgba(41,151,255,0.15)]">
           {services.map((s, i) => (
-            s.video && (
-              <video
+            s.videoId && (
+              <iframe
                 key={i}
-                src={s.video}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hoveredVideo === s.video ? 'opacity-100' : 'opacity-0'}`}
+                src={`https://www.youtube.com/embed/${s.videoId}?autoplay=1&mute=1&loop=1&playlist=${s.videoId}&controls=0&modestbranding=1&rel=0`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className={`absolute inset-0 w-[150%] h-[150%] -top-[25%] -left-[25%] object-cover transition-opacity duration-500 pointer-events-none ${hoveredVideo === s.videoId ? 'opacity-100' : 'opacity-0'}`}
               />
             )
           ))}
@@ -442,7 +442,7 @@ function Works() {
         {services.map((service, i) => (
           <div
             key={service.number}
-            onMouseEnter={() => setHoveredVideo(service.video || null)}
+            onMouseEnter={() => setHoveredVideo(service.videoId || null)}
             onMouseLeave={() => setHoveredVideo(null)}
           >
             <ServiceCard service={service} index={i} />
