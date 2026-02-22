@@ -240,7 +240,7 @@ function Hero() {
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="absolute inset-0 h-[150%] w-[150%] -top-[25%] -left-[25%] object-cover opacity-60 transition-opacity duration-700 group-hover:opacity-100 pointer-events-none"
+              className="absolute inset-0 h-full w-full opacity-60 transition-opacity duration-700 group-hover:opacity-100 pointer-events-none"
             />
             <div className="absolute inset-0 bg-gradient-to-br from-glow-cyan/5 via-transparent to-glow-indigo/5 pointer-events-none" />
 
@@ -346,7 +346,7 @@ function ServiceCard({
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="absolute inset-0 -z-10 h-[150%] w-[150%] -top-[25%] -left-[25%] object-cover transition-all duration-700 pointer-events-none"
+              className="absolute inset-0 -z-10 h-full w-full object-cover transition-all duration-700 pointer-events-none"
               style={{
                 opacity: isHovered ? 0.5 : 0,
                 transform: isHovered ? "scale(1.05)" : "scale(1)",
@@ -420,7 +420,7 @@ function Works() {
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className={`absolute inset-0 w-[150%] h-[150%] -top-[25%] -left-[25%] object-cover transition-opacity duration-500 pointer-events-none ${hoveredVideo === s.videoId ? 'opacity-100' : 'opacity-0'}`}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 pointer-events-none ${hoveredVideo === s.videoId ? 'opacity-100' : 'opacity-0'}`}
               />
             )
           ))}
