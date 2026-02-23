@@ -326,7 +326,7 @@ function ServiceCard({
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl md:rounded-3xl">
           {service.videoId && (
             <iframe
-              src={`https://www.youtube.com/embed/${service.videoId}?autoplay=1&mute=${isHovered ? 0 : 1}&loop=1&playlist=${service.videoId}&controls=0&modestbranding=1&rel=0`}
+              src={`https://www.youtube.com/embed/${service.videoId}?autoplay=1&mute=1&loop=1&playlist=${service.videoId}&controls=0&modestbranding=1&rel=0`}
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
