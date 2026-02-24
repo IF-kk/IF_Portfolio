@@ -501,7 +501,7 @@ function About() {
         <div className="mt-16 grid gap-4 md:grid-cols-3">
           {mainTools.map((tool, i) => (
             <FadeIn key={tool.name} delay={0.1 * i}>
-              <div className="group flex items-center gap-4 rounded-xl border border-border/50 p-5 transition-colors duration-300 hover:border-glow-cyan/20 hover:bg-surface-elevated/50">
+              <div className="group flex items-center gap-4 rounded-xl border border-white/50 p-5 transition-colors duration-300 hover:border-white hover:bg-surface-elevated/50">
                 <div className="flex bg-transparent items-center justify-center p-1">
                   <img src={tool.icon} alt={tool.name} className={`h-10 w-10 object-contain ${tool.name === 'Illustrator' ? 'scale-125' : ''}`} />
                 </div>
