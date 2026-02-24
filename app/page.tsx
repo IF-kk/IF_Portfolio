@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { Twitter, Instagram, Play, ChevronDown, Mail, Check } from "lucide-react";
+import { Twitter, Instagram, Play, ChevronDown, Mail, Check, Volume2, VolumeX } from "lucide-react";
 
 function useSpotlight() {
   const [pos, setPos] = useState({ x: -1000, y: -1000 });
@@ -389,18 +389,19 @@ function ServiceCard({
 
 function Works() {
   const [hoveredVideo, setHoveredVideo] = useState<string | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
 
   return (
     <section id="works" className="relative px-6 py-32 md:px-12 lg:px-24">
       <div
         className={`fixed inset-0 z-40 pointer-events-none flex items-center justify-center transition-all duration-700 ${hoveredVideo ? 'opacity-100 bg-background/80 backdrop-blur-md' : 'opacity-0'}`}
       >
-        <div className="relative w-[90vw] max-w-[1920px] aspect-video rounded-xl overflow-hidden shadow-[0_0_100px_rgba(41,151,255,0.15)]">
+        <div className="relative w-[90vw] max-w-[1920px] aspect-video rounded-xl overflow-hidden shadow-[0_0_100px_rgba(41,151,255,0.15)] pointer-events-auto">
           {services.map((s, i) => (
             s.videoId && (
               <iframe
                 key={i}
-                src={`https://www.youtube.com/embed/${s.videoId}?autoplay=1&mute=${hoveredVideo === s.videoId ? 0 : 1}&loop=1&playlist=${s.videoId}&controls=0&modestbranding=1&rel=0`}
+                src={`https://www.youtube.com/embed/${s.videoId}?autoplay=1&mute=${hoveredVideo === s.videoId && !isMuted ? 0 : 1}&loop=1&playlist=${s.videoId}&controls=0&modestbranding=1&rel=0`}
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -409,6 +410,16 @@ function Works() {
               />
             )
           ))}
+
+          <div className={`absolute bottom-6 right-6 z-50 transition-opacity duration-500 ${hoveredVideo ? 'opacity-100' : 'opacity-0'}`}>
+            <button
+              onClick={() => setIsMuted(!isMuted)}
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-foreground/20 bg-background/50 backdrop-blur-md text-foreground transition-all duration-300 hover:scale-110 hover:bg-background/80"
+              aria-label="Toggle Mute"
+            >
+              {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+            </button>
+          </div>
         </div>
       </div>
 
