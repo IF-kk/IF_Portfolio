@@ -390,13 +390,31 @@ function ServiceCard({
 function Works() {
   const [hoveredVideo, setHoveredVideo] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(true);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = (id: string | null) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (id) setHoveredVideo(id);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setHoveredVideo(null);
+    }, 300);
+  };
 
   return (
     <section id="works" className="relative px-6 py-32 md:px-12 lg:px-24">
       <div
         className={`fixed inset-0 z-40 pointer-events-none flex items-center justify-center transition-all duration-700 ${hoveredVideo ? 'opacity-100 bg-background/80 backdrop-blur-md' : 'opacity-0'}`}
       >
-        <div className="relative w-[90vw] max-w-[1920px] aspect-video rounded-xl overflow-hidden shadow-[0_0_100px_rgba(41,151,255,0.15)] pointer-events-auto">
+        <div
+          className={`relative w-[90vw] max-w-[1920px] aspect-video rounded-xl overflow-hidden shadow-[0_0_100px_rgba(41,151,255,0.15)] ${hoveredVideo ? 'pointer-events-auto' : 'pointer-events-none'}`}
+          onMouseEnter={() => {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+          }}
+          onMouseLeave={handleMouseLeave}
+        >
           {services.map((s, i) => (
             s.videoId && (
               <iframe
@@ -438,8 +456,9 @@ function Works() {
         {services.map((service, i) => (
           <div
             key={service.number}
-            onMouseEnter={() => setHoveredVideo(service.videoId || null)}
-            onMouseLeave={() => setHoveredVideo(null)}
+            onMouseEnter={() => handleMouseEnter(service.videoId || null)}
+            onMouseLeave={handleMouseLeave}
+            className="h-full"
           >
             <ServiceCard service={service} index={i} />
           </div>
