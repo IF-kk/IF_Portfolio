@@ -390,7 +390,7 @@ function VisualsContact({ t }) {
             <FadeIn delay={0.15}>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText("IFvisuals4401@gmail.com");
+                  navigator.clipboard.writeText("ifvisuals4401@gmail.com");
                   setCopied(true);
                   setTimeout(() => setCopied(false), 1800);
                 }}
@@ -401,7 +401,7 @@ function VisualsContact({ t }) {
                     {C.emailLabel}
                   </div>
                   <div className="mt-1 text-[15px] font-medium text-black">
-                    IFvisuals4401@gmail.com
+                    ifvisuals4401@gmail.com
                   </div>
                 </div>
                 <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-black/55 group-hover:text-black">

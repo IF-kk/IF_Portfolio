@@ -922,7 +922,7 @@ function ArtAbout({ t }) {
               </div>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText("IFvisuals4401@gmail.com");
+                  navigator.clipboard.writeText("ifvisuals4401@gmail.com");
                   setCopied(true);
                   setTimeout(() => setCopied(false), 1800);
                 }}
@@ -930,7 +930,7 @@ function ArtAbout({ t }) {
                 className="group mt-4 flex items-baseline gap-4"
               >
                 <span className="text-2xl text-white transition-colors group-hover:text-[#a8d5ff] md:text-3xl">
-                  IFvisuals4401@gmail.com
+                  ifvisuals4401@gmail.com
                 </span>
                 <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/45">
                   {copied ? A.copyDone : A.copyDefault}
