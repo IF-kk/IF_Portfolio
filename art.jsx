@@ -5,7 +5,10 @@
 const { useState: useStateI, useEffect: useEffectI, useRef: useRefI } = React;
 
 /* ---------------- Custom cursor ---------------- */
+const isTouchDevice = () => navigator.maxTouchPoints > 0;
+
 function ArtCursor() {
+  if (isTouchDevice()) return null;
   const dotRef = useRefI(null);
   const ringRef = useRefI(null);
   const [label, setLabel] = useStateI("");
@@ -291,7 +294,7 @@ function MediaLightbox({ item, items, onClose, onNavigate }) {
     <div
       className="fixed inset-0 z-[9000] flex flex-col bg-black/95 backdrop-blur-md art-lightbox"
       onClick={onClose}
-      style={{ cursor: "none" }}
+      style={isTouchDevice() ? {} : { cursor: "none" }}
     >
       <div className="flex items-center justify-between px-5 py-4 font-mono text-[11px] uppercase tracking-[0.25em] text-white/70 md:px-10">
         <div className="flex items-center gap-3 flex-wrap">

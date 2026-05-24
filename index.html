@@ -37,9 +37,11 @@
   }
 
   /* ==== ART SCOPE (dark / reactive) ==== */
-  .art-scope { cursor: none; }
-  .art-scope a, .art-scope button { cursor: none; }
-  .art-lightbox, .art-lightbox * { cursor: none !important; }
+  @media (pointer: fine) {
+    .art-scope { cursor: none; }
+    .art-scope a, .art-scope button { cursor: none; }
+    .art-lightbox, .art-lightbox * { cursor: none !important; }
+  }
   .art-cursor-dot {
     position: fixed;
     top: 0; left: 0;
@@ -218,8 +220,10 @@
   }
 
   /* In ART mode, hide native cursor on badge too */
-  .art-scope .mode-badge,
-  .art-scope .mode-badge button { cursor: none; }
+  @media (pointer: fine) {
+    .art-scope .mode-badge,
+    .art-scope .mode-badge button { cursor: none; }
+  }
 </style>
 </head>
 <body>
