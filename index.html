@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>IF — Portfolio Redesign Preview</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root {
+    --background: #000000;
+    --foreground: #f5f5f7;
+    --glow-cyan: #2997ff;
+    --glow-indigo: #5e5ce6;
+    --border: #1c1c1e;
+    --text-secondary: #86868b;
+    --text-tertiary: #48484a;
+    --surface-glass: rgba(28, 28, 30, 0.6);
+  }
+  html, body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  body { background: #000; color: #f5f5f7; }
+  html { scroll-behavior: smooth; }
+  ::selection { background: rgba(41,151,255,0.3); color: #f5f5f7; }
+  .font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  /* utility safe colors for tailwind arbitrary refs */
+  .text-balance { text-wrap: balance; }
+
+  /* ==== VISUALS SCOPE (light commercial) ==== */
+  .visuals-scope ::selection {
+    background: rgba(0,0,0,0.85);
+    color: #fafaf7;
+  }
+
+  /* ==== ART SCOPE (dark / reactive) ==== */
+  .art-scope { cursor: none; }
+  .art-scope a, .art-scope button { cursor: none; }
+  .art-lightbox, .art-lightbox * { cursor: none !important; }
+  .art-cursor-dot {
+    position: fixed;
+    top: 0; left: 0;
+    width: 10px; height: 10px;
+    margin-left: -5px; margin-top: -5px;
+    background: #ffffff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    box-shadow:
+      0 0 0 2px rgba(0,0,0,0.55),
+      0 0 18px 4px rgba(168, 92, 255, 0.55),
+      0 0 4px rgba(0,0,0,0.7);
+  }
+  .art-cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 44px; height: 44px;
+    border: 1.5px solid rgba(255,255,255,0.92);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.25s ease, height 0.25s ease, background 0.25s ease;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,0.55),
+      inset 0 0 0 1px rgba(0,0,0,0.35),
+      0 0 24px rgba(168, 92, 255, 0.35);
+    background: rgba(0,0,0,0.18);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+  }
+  .art-cursor-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #fff;
+    white-space: nowrap;
+    transform: translateY(-200%);
+    position: absolute;
+    top: 50%;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  }
+
+  /* glitch text effect */
+  .art-glitch {
+    animation: glitch-shake 0.12s infinite;
+    text-shadow: 2px 0 #ff2bd6, -2px 0 #00f0ff;
+  }
+  @keyframes glitch-shake {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(-1px, 1px); }
+    50%  { transform: translate(1px, -1px); }
+    75%  { transform: translate(-1px, -1px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* scanlines */
+  .scanlines {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.025) 0px,
+        rgba(255,255,255,0.025) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+    mix-blend-mode: overlay;
+  }
+
+  /* VJ loop CSS animation */
+  .vj-loop { background: #050108; }
+  .vj-orb {
+    position: absolute;
+    inset: 12% 12% 12% 12%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 30% 30%,
+      hsl(var(--vj-hue), 100%, 80%) 0%,
+      hsl(var(--vj-hue), 95%, 45%) 35%,
+      hsl(calc(var(--vj-hue) + 60), 95%, 25%) 70%,
+      transparent 100%
+    );
+    filter: blur(14px);
+    animation: vj-pulse 4s ease-in-out infinite alternate;
+  }
+  .vj-ring {
+    position: absolute;
+    inset: 18%;
+    border-radius: 50%;
+    border: 1px solid hsl(var(--vj-hue), 100%, 80%);
+    opacity: 0.4;
+    animation: vj-spin 12s linear infinite;
+  }
+  .vj-ring-2 {
+    inset: 28%;
+    border-color: hsl(calc(var(--vj-hue) + 80), 100%, 80%);
+    animation: vj-spin 8s linear infinite reverse;
+  }
+  .vj-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mix-blend-mode: overlay;
+    animation: vj-drift 18s linear infinite;
+  }
+  @keyframes vj-pulse {
+    0%   { transform: scale(0.92) rotate(0deg); filter: blur(14px) hue-rotate(0deg); }
+    100% { transform: scale(1.05) rotate(45deg); filter: blur(18px) hue-rotate(40deg); }
+  }
+  @keyframes vj-spin {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes vj-drift {
+    to { background-position: 200px 200px, 200px 200px; }
+  }
+
+  @keyframes bar-pulse {
+    0%   { transform: scaleY(0.5); }
+    100% { transform: scaleY(1); }
+  }
+
+  /* No-flash gate */
+  #app-loading {
+    position: fixed; inset: 0;
+    background: #000; color: #888;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    z-index: 9999;
+  }
+  .ready #app-loading { display: none; }
+
+  /* page transition - opacity only (transform would create a fixed-positioning containing block) */
+  .page-fade-enter { animation: page-in 0.5s ease both; }
+  @keyframes page-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Mode badge (prototype scaffolding) */
+  .mode-badge {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    z-index: 100;
+    display: flex;
+    gap: 6px;
+    padding: 6px;
+    background: rgba(10,10,12,0.78);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .mode-badge button {
+    padding: 6px 12px;
+    border-radius: 999px;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    transition: color 0.2s, background 0.2s;
+  }
+  .mode-badge button:hover { color: #fff; }
+  .mode-badge button.active {
+    background: rgba(255,255,255,0.92);
+    color: #000;
+  }
+
+  /* In ART mode, hide native cursor on badge too */
+  .art-scope .mode-badge,
+  .art-scope .mode-badge button { cursor: none; }
+</style>
+</head>
+<body>
+<div id="app-loading">Loading…</div>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="i18n.jsx"></script>
+<script type="text/babel" src="share.jsx"></script>
+<script type="text/babel" src="landing.jsx"></script>
+<script type="text/babel" src="visuals.jsx"></script>
+<script type="text/babel" src="art.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const { useState, useEffect } = React;
+
+const ROUTES = ["landing", "visuals", "art"];
+
+function readModeFromHash() {
+  const h = (window.location.hash || "").replace("#", "").toLowerCase();
+  return ROUTES.includes(h) ? h : null;
+}
+
+function setQueryLang(lang) {
+  const url = new URL(window.location.href);
+  if (lang === "en") url.searchParams.set("lang", "en");
+  else url.searchParams.delete("lang");
+  history.replaceState(null, "", url.toString());
+}
+
+function App() {
+  const [mode, setMode] = useState(readModeFromHash() || "landing");
+  const [lang, setLangState] = useState(readLangFromURL());
+  const [shareOpen, setShareOpen] = useState(false);
+  const t = STRINGS[lang];
+
+  const setLang = (l) => {
+    setLangState(l);
+    setQueryLang(l);
+  };
+
+  const go = (m) => {
+    const url = new URL(window.location.href);
+    if (lang === "en") url.searchParams.set("lang", "en");
+    url.hash = m === "landing" ? "" : m;
+    history.replaceState(null, "", url.toString());
+    setMode(m);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+
+  useEffect(() => {
+    const onHash = () => {
+      const next = readModeFromHash();
+      if (next) setMode(next);
+    };
+    window.addEventListener("hashchange", onHash);
+    document.body.classList.add("ready");
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  const pageProps = { go, lang, setLang, t, openShare: () => setShareOpen(true) };
+
+  return (
+    <React.Fragment>
+      <div key={mode} className="page-fade-enter" data-screen-label={mode}>
+        {mode === "landing" && <Landing {...pageProps} />}
+        {mode === "visuals" && <VisualsPage {...pageProps} />}
+        {mode === "art" && <ArtPage {...pageProps} />}
+      </div>
+      {/* prototype-only screen switcher */}
+      <div className="mode-badge">
+        {[["landing","Top"],["visuals","IF Visuals"],["art","IF / Art"]].map(([k,l]) => (
+          <button
+            key={k}
+            className={mode === k ? "active" : ""}
+            onClick={() => go(k)}
+          >{l}</button>
+        ))}
+        <button
+          onClick={() => setShareOpen(true)}
+          title="Share URLs"
+          style={{ paddingLeft: 10, paddingRight: 10 }}
+        >↗ URLs</button>
+      </div>
+      <SharePanel open={shareOpen} onClose={() => setShareOpen(false)} />
+    </React.Fragment>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+</script>
+</body>
+</html>
