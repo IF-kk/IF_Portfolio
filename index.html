@@ -257,7 +257,6 @@ function setQueryLang(lang) {
 function App() {
   const [mode, setMode] = useState(readModeFromHash() || "landing");
   const [lang, setLangState] = useState(readLangFromURL());
-  const [shareOpen, setShareOpen] = useState(false);
   const t = STRINGS[lang];
 
   const setLang = (l) => {
@@ -284,7 +283,7 @@ function App() {
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
-  const pageProps = { go, lang, setLang, t, openShare: () => setShareOpen(true) };
+  const pageProps = { go, lang, setLang, t };
 
   return (
     <React.Fragment>
@@ -302,13 +301,7 @@ function App() {
             onClick={() => go(k)}
           >{l}</button>
         ))}
-        <button
-          onClick={() => setShareOpen(true)}
-          title="Share URLs"
-          style={{ paddingLeft: 10, paddingRight: 10 }}
-        >↗ URLs</button>
       </div>
-      <SharePanel open={shareOpen} onClose={() => setShareOpen(false)} />
     </React.Fragment>
   );
 }
