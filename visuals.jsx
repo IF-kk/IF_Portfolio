@@ -410,13 +410,15 @@ function VisualsContact({ t }) {
               </button>
               <div className="mt-3">
                 <a
-                  href="#"
+                  href="https://x.com/IF_Kakuhito"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block rounded-2xl border border-black/10 bg-white px-5 py-4 transition-colors hover:border-black/30"
                 >
                   <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-black/45">
                     {C.twitterLabel}
                   </div>
-                  <div className="mt-1 text-[14px] text-black">@if_visuals</div>
+                  <div className="mt-1 text-[14px] text-black">@IF_Kakuhito</div>
                 </a>
               </div>
             </FadeIn>

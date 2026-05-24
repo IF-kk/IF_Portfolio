@@ -937,14 +937,8 @@ function ArtAbout({ t }) {
                 </span>
               </button>
               <div className="mt-4 flex gap-5 font-mono text-[11px] uppercase tracking-[0.22em] text-white/55">
-                <a href="#" data-cursor="→" className="hover:text-white">
-                  Instagram
-                </a>
-                <a href="#" data-cursor="→" className="hover:text-white">
+                <a href="https://x.com/IF_Kakuhito" target="_blank" rel="noopener noreferrer" data-cursor="→" className="hover:text-white">
                   X / Twitter
-                </a>
-                <a href="#" data-cursor="→" className="hover:text-white">
-                  SoundCloud
                 </a>
               </div>
             </div>
