@@ -95,7 +95,7 @@ const STRINGS = {
       },
       about: {
         eyebrow: "About",
-        name: "Eiki Tanaka",
+        name: "E.tanaka",
         role: "Motion Designer",
         body: "モーショングラフィックスを中心に、広告・BtoB企業の課題解決を行う映像クリエイター。企画段階からの参画を得意とし、目的設計に基づいた表現で「伝わる映像」を制作します。",
         meta: [
@@ -254,7 +254,7 @@ const STRINGS = {
       },
       about: {
         eyebrow: "About",
-        name: "Eiki Tanaka",
+        name: "E.tanaka",
         role: "Motion Designer",
         body: "A video creator focused on motion graphics, solving problems for advertising and B2B brands. Comfortable joining at the planning stage — building 'video that lands' from purpose first.",
         meta: [
